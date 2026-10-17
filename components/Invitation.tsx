@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { wedding } from "@/config/wedding";
 import { Cover } from "@/components/Cover";
 import { Countdown } from "@/components/Countdown";
+import { CalendarPreview } from "@/components/CalendarPreview";
 import { Guestbook } from "@/components/Guestbook";
 import { MusicPlayer } from "@/components/MusicPlayer";
 
@@ -191,6 +192,7 @@ export function Invitation({ guestName }: { guestName: string }) {
         </h2>
         <p className="mt-3 text-sm text-white/90">{wedding.dateLabel}</p>
         <Countdown date={wedding.date} />
+        <CalendarPreview />
         <div className="mx-auto mt-11 grid max-w-4xl gap-5 text-left sm:grid-cols-2">
           {wedding.events.map((event) => (
             <article
@@ -224,6 +226,16 @@ export function Invitation({ guestName }: { guestName: string }) {
               >
                 <Icon name="pin" /> BUKA GOOGLE MAPS
               </a>
+              <div className="mt-6 overflow-hidden rounded-xl border border-[#d7ebe6] bg-white shadow-sm">
+                <iframe
+                  title={`Peta lokasi ${event.place}`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(event.place)}&output=embed`}
+                  className="block aspect-[16/9] w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
             </article>
           ))}
         </div>
@@ -284,9 +296,9 @@ export function Invitation({ guestName }: { guestName: string }) {
       <Guestbook guestName={guestName} />
       <footer className="bg-[#236e64] px-6 py-7 text-center text-[10px] tracking-wide text-white/75">
         <p className="font-serif text-2xl text-white">
-          {wedding.bride.shortName} &amp; {wedding.groom.shortName}
+          KEHADRIAN ANDA SANGAT BERARTI
         </p>
-        <p className="mt-2">Dibuat dengan penuh cinta ♥ {wedding.dateLabel}</p>
+        <p className="mt-2">©2026 Kreatipisan.co</p>
       </footer>
     </main>
   );

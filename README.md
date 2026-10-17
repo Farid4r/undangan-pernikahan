@@ -1,4 +1,4 @@
-# Undangan Pernikahan Nadia & Arga
+# Undangan Pernikahan Rifqi & Natsahya
 
 Undangan satu halaman berbasis Next.js App Router, TypeScript, Tailwind CSS, dan Supabase. Detail pasangan berada di `config/wedding.ts`; semua tamu memakai website yang sama.
 

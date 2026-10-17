@@ -4,7 +4,7 @@ import { wedding } from "@/config/wedding";
 
 export function Cover({ guestName, onOpen }: { guestName: string; onOpen: () => void }) {
   return <section className="cover relative flex min-h-[100svh] items-center justify-center px-6 py-16 text-center text-white">
-    <div className="cover-image absolute inset-0" /><div className="cover-shade absolute inset-0" />
+    <div className="cover-image absolute inset-0" style={{ backgroundImage: `url("${wedding.coverPhoto}")` }} /><div className="cover-shade absolute inset-0" />
     <div className="relative z-10 mx-auto max-w-xl">
       <p className="eyebrow mb-7 text-[10px] text-white/85 sm:text-xs">UNDANGAN PERNIKAHAN</p>
       <p className="font-serif text-lg italic sm:text-xl">The wedding of</p>

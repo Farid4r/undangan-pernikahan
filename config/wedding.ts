@@ -1,18 +1,21 @@
 export const wedding = {
-  bride: { name: "Nadia Putri", shortName: "Nadia", parents: "Putri dari Bapak H. Ahmad & Ibu Hj. Siti", photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&h=400&q=85" },
-  groom: { name: "Arga Pratama", shortName: "Arga", parents: "Putra dari Bapak H. Budi & Ibu Hj. Rina", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&h=400&q=85" },
+  bride: { name: "Natashya Zahra N", shortName: "Natashya", parents: "Putri dari Bapak (Alm) Nurdin & Ibu Hj. Yuli Mariana M, S,Pd", photo: "/images/wedding/bride.jpg" },
+  groom: { name: "M Rifqi Subakti", shortName: "Rifqi", parents: "Putra dari Bapak H. Asep Bakti & Ibu Hj. Titin Sumarni S.Pd", photo: "/images/wedding/groom.jpg" },
+  coverPhoto: "/images/wedding/cover.JPG",
   date: "2026-11-21T08:00:00+07:00",
-  dateLabel: "Sabtu, 21 November 2026",
+  dateLabel: "Ahad, 20 Desember 2026",
   story: "Berawal dari pertemuan sederhana, tumbuh menjadi cerita yang kami syukuri setiap harinya. Dengan doa keluarga dan sahabat, kami siap melangkah bersama menuju selamanya.",
-  gallery: [
-    { src: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1000&q=85", alt: "Pasangan berjalan di taman saat senja" },
-    { src: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=900&q=85", alt: "Buket bunga putih dan hijau" },
-    { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=85", alt: "Momen bahagia pasangan" },
-  ],
-  musicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  gallery: ["JPG", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG"].map((extension, index) => ({
+    src: `/images/wedding/gallery-${String(index + 1).padStart(2, "0")}.${extension}`,
+    alt: `Foto galeri pernikahan ${index + 1}`,
+  })),
+  saveTheDatePhoto: "/images/wedding/save-the-date.jpg",
+  musicUrl: "/audio/wedding-music.mp3",
   events: [
-    { type: "Akad Nikah", time: "08.00 – 10.00 WIB", place: "Masjid Raya Al-Ikhlas, Bandung", mapsUrl: "https://maps.google.com/?q=Masjid+Raya+Al-Ikhlas+Bandung" },
-    { type: "Resepsi", time: "11.00 – 14.00 WIB", place: "The Garden Hall, Bandung", mapsUrl: "https://maps.google.com/?q=The+Garden+Hall+Bandung" },
+    { type: "Resepsi", time: "10.30 – Selesai", place: "CV Abynet", mapsUrl: "https://maps.app.goo.gl/YyPJGYvc9RVsa1GB8?g_st=ic" },
   ],
-  bank: { name: "Bank BCA", account: "1234567890", holder: "Nadia Putri" },
+  bankAccounts: [
+    { name: "Bank BCA", account: "1234567890", holder: "Rifqi Subakti" },
+    { name: "DANA", account: "08737298292837", holder: "Natashya" },
+  ],
 } as const;

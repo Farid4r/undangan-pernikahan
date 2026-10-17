@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Undangan Pernikahan Nadia & Arga
 
-## Getting Started
+Undangan satu halaman berbasis Next.js App Router, TypeScript, Tailwind CSS, dan Supabase. Detail pasangan berada di `config/wedding.ts`; semua tamu memakai website yang sama.
 
-First, run the development server:
+## Menjalankan lokal
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka `http://localhost:3000/?to=Magni` atau `http://localhost:3000/?to=Budi%20Santoso`. Parameter `to` otomatis di-decode URL, spasi berulang dirapikan, dan nilai kosong memakai `Tamu Undangan`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Mengaktifkan RSVP dan buku ucapan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Buat proyek Supabase, lalu jalankan `supabase/schema.sql` lewat SQL Editor.
+2. Salin `.env.example` menjadi `.env.local` dan isi `SUPABASE_URL` serta `SUPABASE_ANON_KEY` dengan URL dan anon/publishable key proyek.
+3. Restart server Next.js. Kunci digunakan hanya di route server; jangan masukkan service-role key ke aplikasi.
 
-## Learn More
+Jika kredensial belum diisi, halaman tetap berfungsi dan formulir menampilkan bahwa buku ucapan belum dikonfigurasi. API memvalidasi panjang nama dan ucapan, pilihan RSVP, lalu menulis RSVP dan ucapan dalam satu transaksi database. RLS membatasi akses anon pada insert yang tervalidasi dan membaca ucapan.
 
-To learn more about Next.js, take a look at the following resources:
+## Mengubah detail acara
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit `config/wedding.ts` untuk nama pasangan, cerita, tanggal countdown, jadwal, tautan Google Maps, foto, URL musik, dan rekening. Ganti gambar contoh dengan foto pasangan sebelum dipublikasikan. URL musik contoh bisa diganti dengan file milik pasangan, misalnya `/music.mp3` di folder `public/`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy ke Vercel
 
-## Deploy on Vercel
+Hubungkan repository Git ke Vercel dan pilih preset Next.js. Tambahkan `SUPABASE_URL` dan `SUPABASE_ANON_KEY` pada Project Settings → Environment Variables untuk Production (serta Preview bila diperlukan), kemudian deploy. Pastikan skema SQL sudah dijalankan di proyek Supabase yang sama.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Periksa sebelum publikasi:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```

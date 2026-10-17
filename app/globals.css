@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fbfffe;
   --foreground: #315c55;
   --teal: #319c91;
   --deep-teal: #236e64;
   --mint: #e8f5f2;
+  --line: #d7ebe6;
+  --soft-white: #f7fcfa;
 }
 
 @theme inline {
@@ -15,15 +17,78 @@
   --font-sans: Arial, Helvetica, sans-serif;
 }
 
-html { scroll-behavior: smooth; }
-body { background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 ::selection { background: #c8e8e0; color: #236e64; }
-.eyebrow { letter-spacing: .28em; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a { transition: color .25s ease, background-color .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+.eyebrow { letter-spacing: .28em; line-height: 1.8; }
+.cover { isolation: isolate; background: #236e64; }
 .cover-image { background-position: center 47%; background-size: cover; transform: scale(1.02); animation: settle 1.5s ease-out both; }
-.cover-shade { background: linear-gradient(180deg, rgb(23 66 59 / 32%), rgb(19 58 53 / 48%) 48%, rgb(23 66 59 / 63%)); }
-.save-the-date { background-image: linear-gradient(rgb(22 63 57 / 52%), rgb(22 63 57 / 52%)), url("/images/wedding/save-the-date.jpg"); background-position: center; background-size: cover; }
+.cover-shade { background: linear-gradient(180deg, rgb(19 67 61 / 58%), rgb(21 78 71 / 68%) 48%, rgb(18 61 56 / 78%)); }
+.cover-frame { border: 1px solid rgb(255 255 255 / 30%); border-radius: 1.1rem; }
+.cover-card {
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 1.15rem;
+  background: linear-gradient(145deg, rgb(23 92 83 / 70%), rgb(24 75 68 / 78%));
+  box-shadow: 0 24px 70px rgb(12 45 40 / 22%);
+  backdrop-filter: blur(3px);
+}
+.cover-monogram { background: rgb(255 255 255 / 10%); box-shadow: 0 0 0 5px rgb(255 255 255 / 5%); }
+.cover-divider { background: linear-gradient(90deg, transparent, rgb(220 249 241 / 85%), transparent); }
+.cover-open { background: rgb(255 255 255 / 9%); }
+.save-the-date {
+  background-color: #236e64;
+  background-image: linear-gradient(145deg, rgb(24 91 82 / 88%), rgb(35 110 100 / 91%)), url("/images/wedding/save-the-date.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.countdown-grid { padding: .5rem; border: 1px solid rgb(255 255 255 / 45%); border-radius: 1rem; background: rgb(255 255 255 / 13%); backdrop-filter: blur(8px); }
+.countdown-cell { border: 1px solid rgb(255 255 255 / 70%); border-radius: .55rem; background: #fff; box-shadow: 0 4px 16px rgb(19 75 66 / 5%); }
+main > section:not(.cover) { position: relative; }
+main > section:not(.cover) h2 { letter-spacing: -.025em; }
+main > section:not(.cover) article { border-radius: 1rem; box-shadow: 0 10px 30px rgb(31 96 84 / 5%); }
+main > section:not(.cover) a[href*="maps"] { box-shadow: 0 5px 14px rgb(35 110 100 / 16%); }
+main > section:not(.cover) a[href*="maps"]:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(35 110 100 / 23%); }
+#undangan { background: linear-gradient(180deg, #fff 0%, #f8fcfb 100%); }
+#undangan img { box-shadow: 0 12px 30px rgb(35 110 100 / 12%); }
+#undangan img + p { letter-spacing: -.025em; }
+main > section:nth-of-type(3) { background-color: #fff; }
+main > section:nth-of-type(4) { background: #fbfefd; }
+main > section:nth-of-type(4) img { border-radius: .75rem; box-shadow: 0 7px 22px rgb(35 110 100 / 9%); transition: transform .35s ease, box-shadow .35s ease; }
+main > section:nth-of-type(4) img:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(35 110 100 / 15%); }
+main > section:nth-of-type(5) { background: linear-gradient(180deg, #e8f5f2, #f6fbf9); }
+main > section:nth-of-type(5) > div > div > div { border-radius: .9rem; box-shadow: 0 8px 24px rgb(35 110 100 / 7%); }
+main > section:nth-of-type(5) button { border-radius: 999px; }
+main > section:nth-of-type(5) button:hover { transform: translateY(-1px); }
+.guestbook-section { background: #f7fcfa; }
+.guestbook-section input, .guestbook-section select, .guestbook-section textarea { border-radius: .65rem; transition: border-color .2s ease, box-shadow .2s ease; }
+.guestbook-section input:focus, .guestbook-section select:focus, .guestbook-section textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgb(49 156 145 / 12%); outline: none; }
+.guestbook-submit { border-radius: 999px; box-shadow: 0 6px 16px rgb(35 110 100 / 15%); }
+.guestbook-entry { border-radius: .8rem; }
+.music-player-button { border: 1px solid rgb(255 255 255 / 70%); box-shadow: 0 8px 24px rgb(22 84 75 / 25%); }
+.music-player-button:hover { transform: translateY(-2px); }
 .reveal-ready .scroll-reveal:not(.is-visible) { opacity: 0; transform: translateY(20px); }
 .scroll-reveal.is-visible { animation: reveal-in .65s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms) both; }
 @keyframes reveal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes settle { from { transform: scale(1.08); } to { transform: scale(1.02); } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } .reveal-ready .scroll-reveal:not(.is-visible) { opacity: 1; transform: none; } }
+@media (min-width: 768px) {
+  .cover-card { min-height: 78svh; }
+}
+@media (max-width: 420px) {
+  .cover-card { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .eyebrow { letter-spacing: .2em; }
+  .countdown-grid { gap: .35rem; }
+  .countdown-cell { padding-left: .1rem; padding-right: .1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .reveal-ready .scroll-reveal:not(.is-visible) { opacity: 1; transform: none; }
+}

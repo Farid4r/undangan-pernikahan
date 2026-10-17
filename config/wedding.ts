@@ -2,7 +2,7 @@ export const wedding = {
   bride: { name: "Natashya Zahra N", shortName: "Natashya", parents: "Putri dari Bapak (Alm) Nurdin & Ibu Hj. Yuli Mariana M, S,Pd", photo: "/images/wedding/bride.jpg" },
   groom: { name: "M Rifqi Subakti", shortName: "Rifqi", parents: "Putra dari Bapak H. Asep Bakti & Ibu Hj. Titin Sumarni S.Pd", photo: "/images/wedding/groom.jpg" },
   coverPhoto: "/images/wedding/cover.JPG",
-  date: "2026-11-21T08:00:00+07:00",
+  date: "2026-12-20T08:00:00+07:00",
   dateLabel: "Ahad, 20 Desember 2026",
   story: "Berawal dari pertemuan sederhana, tumbuh menjadi cerita yang kami syukuri setiap harinya. Dengan doa keluarga dan sahabat, kami siap melangkah bersama menuju selamanya.",
   gallery: ["JPG", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG"].map((extension, index) => ({
@@ -10,7 +10,7 @@ export const wedding = {
     alt: `Foto galeri pernikahan ${index + 1}`,
   })),
   saveTheDatePhoto: "/images/wedding/save-the-date.jpg",
-  musicUrl: "/audio/wedding-music.mp3",
+  musicUrl: " public/audio/wedding-song.mp3",
   events: [
     { type: "Resepsi", time: "10.30 – Selesai", place: "CV Abynet", mapsUrl: "https://maps.app.goo.gl/YyPJGYvc9RVsa1GB8?g_st=ic" },
   ],

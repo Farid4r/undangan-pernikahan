@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Natashya & RIfqi — Undangan Pernikahan",
-  description: "Dengan penuh kebahagiaan, Nadia dan Arga mengundang Anda untuk hadir di hari pernikahan mereka.",
+  title: "Natashya & Rifqi — Undangan Pernikahan",
+  description: "Dengan penuh kebahagiaan, Natashya dan Rifqi mengundang Anda untuk hadir di hari pernikahan mereka.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

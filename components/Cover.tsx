@@ -18,8 +18,8 @@ export function Cover({
       <div className="cover-shade absolute inset-0" />
       <div className="cover-frame pointer-events-none absolute inset-3 sm:inset-6" />
       <div className="cover-card relative z-10 mx-auto flex min-h-[76svh] w-full max-w-md flex-col items-center justify-center px-6 py-12 sm:px-10">
-        <div className="cover-monogram mb-7 grid h-14 w-14 place-items-center rounded-full border border-white/60 font-serif text-lg">
-          R<span className="text-[#bde6df]">&amp;</span>N
+        <div className="cover-monogram mb-7 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/60 font-serif text-base leading-none">
+          <span className="whitespace-nowrap">R<span className="text-[#bde6df]">&amp;</span>N</span>
         </div>
         <p className="eyebrow mb-5 text-[9px] text-white/85 sm:text-[10px]">
           UNDANGAN PERNIKAHAN

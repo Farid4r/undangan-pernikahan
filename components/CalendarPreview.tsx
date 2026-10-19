@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const weekdays = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 const daysInDecember = 31;
 const firstWeekday = 2; // 1 Desember 2026 jatuh pada Selasa.
@@ -9,8 +11,16 @@ const calendarDays = Array.from({ length: 35 }, (_, index) => {
 export function CalendarPreview() {
   return (
     <div className="mx-auto mt-8 w-full max-w-xs rounded-2xl border border-white/60 bg-white/95 p-5 text-[#315c55] shadow-xl backdrop-blur sm:mt-10 sm:p-6">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="text-left">
+      <div className="mb-5 flex flex-col items-center text-center">
+        <Image
+          src="/images/calendar.png"
+          alt=""
+          aria-hidden="true"
+          width={48}
+          height={48}
+          className="mb-4 size-12 object-contain"
+        />
+        <div>
           <p className="eyebrow text-[9px] text-[#319c91]">KALENDER ACARA</p>
           <h3 className="mt-1 font-serif text-2xl text-[#236e64]">
             Desember 2026

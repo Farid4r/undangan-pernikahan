@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { wedding } from "@/config/wedding";
 import { Cover } from "@/components/Cover";
 import { Countdown } from "@/components/Countdown";
@@ -193,14 +194,21 @@ export function Invitation({ guestName }: { guestName: string }) {
         <p className="mt-3 text-sm text-white/90">{wedding.dateLabel}</p>
         <Countdown date={wedding.date} />
         <CalendarPreview />
-        <div className="mx-auto mt-11 grid max-w-4xl gap-5 text-left sm:grid-cols-2">
+        <div className="mx-auto mt-11 grid max-w-4xl justify-items-center gap-5 sm:grid-cols-2">
           {wedding.events.map((event) => (
             <article
               key={event.type}
-              className="border border-[#f6f7f6] bg-white/70 p-7 sm:p-9"
+              className="w-full border border-[#d7ebe6] bg-white p-7 text-center sm:p-9"
             >
-              <div className="flex items-center gap-3 text-[#319c91]">
-                <Icon name="heart" />
+              <Image
+                src="/images/location.png"
+                alt=""
+                aria-hidden="true"
+                width={48}
+                height={48}
+                className="mx-auto mb-5 size-12 object-contain"
+              />
+              <div className="flex flex-col items-center gap-2 text-[#319c91]">
                 <p className="eyebrow text-[10px]">
                   {event.type.toUpperCase()}
                 </p>
@@ -209,17 +217,17 @@ export function Invitation({ guestName }: { guestName: string }) {
                 {wedding.dateLabel}
               </p>
               <div className="mt-5 space-y-3 text-sm text-[#6d8580]">
-                <p className="flex items-center gap-3">
+                <p className="flex items-center justify-center gap-3">
                   <Icon name="clock" />
                   {event.time}
                 </p>
-                <p className="flex items-center gap-3">
+                <p className="flex items-center justify-center gap-3">
                   <Icon name="pin" />
                   {event.place}
                 </p>
               </div>
               <a
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#319c91] px-5 py-2.5 text-xs tracking-widest text-white hover:bg-[#236e64]"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#319c91] px-5 py-2.5 text-xs tracking-widest text-white hover:bg-[#236e64]"
                 href={event.mapsUrl}
                 target="_blank"
                 rel="noreferrer"

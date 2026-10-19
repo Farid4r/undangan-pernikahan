@@ -15,7 +15,8 @@ export const wedding = {
     { type: "Resepsi", time: "10.30 – Selesai", place: "CV Abynet", mapsUrl: "https://maps.app.goo.gl/YyPJGYvc9RVsa1GB8?g_st=ic" },
   ],
   bankAccounts: [
-    { name: "Bank BCA", account: "1234567890", holder: "Rifqi Subakti" },
-    { name: "DANA", account: "08737298292837", holder: "Natashya" },
+    { name: "Bank BCA", account: "5421170089", holder: "Rifqi Subakti" },
+    { name: "Bank MANDIRI", account: "13100192624107", holder: "Natashya" },
+    { name: "DANA", account: "0896303667", holder: "Rifqi Subakti" },
   ],
 } as const;

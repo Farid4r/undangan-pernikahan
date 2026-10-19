@@ -197,7 +197,7 @@ export function Invitation({ guestName }: { guestName: string }) {
           {wedding.events.map((event) => (
             <article
               key={event.type}
-              className="border border-[#cce3dd] bg-white/70 p-7 sm:p-9"
+              className="border border-[#f6f7f6] bg-white/70 p-7 sm:p-9"
             >
               <div className="flex items-center gap-3 text-[#319c91]">
                 <Icon name="heart" />
@@ -296,7 +296,7 @@ export function Invitation({ guestName }: { guestName: string }) {
       <Guestbook guestName={guestName} />
       <footer className="bg-[#236e64] px-6 py-7 text-center text-[10px] tracking-wide text-white/75">
         <p className="font-serif text-2xl text-white">
-          KEHADRIAN ANDA SANGAT BERARTI
+          TERIMA KASIH 
         </p>
         <p className="mt-2">©2026 Kreatipisan.co</p>
       </footer>

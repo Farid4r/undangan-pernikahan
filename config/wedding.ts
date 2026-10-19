@@ -5,7 +5,7 @@ export const wedding = {
   date: "2026-12-20T08:00:00+07:00",
   dateLabel: "Ahad, 20 Desember 2026",
   story: "Berawal dari pertemuan sederhana, tumbuh menjadi cerita yang kami syukuri setiap harinya. Dengan doa keluarga dan sahabat, kami siap melangkah bersama menuju selamanya.",
-  gallery: ["JPG", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG"].map((extension, index) => ({
+  gallery: ["JPG", "JPG", "JPG", "JPG", "jpg", "jpg", "JPG", "JPG"].map((extension, index) => ({
     src: `/images/wedding/gallery-${String(index + 1).padStart(2, "0")}.${extension}`,
     alt: `Foto galeri pernikahan ${index + 1}`,
   })),

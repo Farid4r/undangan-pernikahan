@@ -18,6 +18,8 @@ export function Guestbook({ guestName }: { guestName: string }) {
       <label className="block text-xs text-[#68827c]">Ucapan dan doa<textarea required minLength={2} maxLength={500} name="message" rows={4} placeholder="Tuliskan ucapan untuk kedua mempelai" className="mt-2 w-full resize-y border border-[#d5e7e2] bg-white px-4 py-3 text-sm outline-none focus:border-[#319c91]" /></label>
       <button disabled={sending} className="guestbook-submit w-full bg-[#319c91] px-6 py-3 text-xs tracking-[.18em] text-white transition hover:bg-[#236e64] disabled:opacity-60">{sending ? "MENGIRIM…" : "KIRIM UCAPAN"}</button>
     </form><p aria-live="polite" className="mt-4 min-h-6 text-sm text-[#68827c]">{status}</p>
-    <div className="mt-8 space-y-3 text-left">{entries.map((entry) => <article key={entry.id} className="guestbook-entry border border-[#d5e7e2] bg-white p-4"><p className="font-medium text-[#236e64]">{entry.name}</p><p className="mt-2 text-sm leading-6 text-[#78918c]">{entry.message}</p></article>)}</div>
+    <div aria-label="Daftar ucapan yang tersimpan" className="guestbook-entries mt-8 max-h-80 overflow-y-auto overscroll-contain rounded-2xl border border-[#d5e7e2] bg-white p-4 text-left">
+      {entries.length > 0 ? <div className="space-y-3">{entries.map((entry) => <article key={entry.id} className="guestbook-entry border border-[#d5e7e2] bg-white p-4"><p className="font-medium text-[#236e64]">{entry.name}</p><p className="mt-2 text-sm leading-6 text-[#78918c]">{entry.message}</p></article>)}</div> : <p className="py-8 text-center text-sm text-[#78918c]">Belum ada ucapan tersimpan.</p>}
+    </div>
   </div></section>;
 }

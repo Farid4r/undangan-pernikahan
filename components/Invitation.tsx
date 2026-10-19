@@ -248,8 +248,15 @@ export function Invitation({ guestName }: { guestName: string }) {
           ))}
         </div>
       </section>
-      <section className="px-6 py-20 sm:py-24">
-        <div className="mx-auto max-w-4xl text-center">
+      <section className="relative overflow-hidden bg-[#fbfefd] px-6 py-20 sm:py-24">
+        <Flower className="pointer-events-none absolute -left-10 top-10 w-32 text-[#319c91]/10 sm:left-6 sm:w-40" />
+        <Flower className="pointer-events-none absolute -right-10 bottom-8 w-32 rotate-90 text-[#319c91]/10 sm:right-6 sm:w-40" />
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
+          <div aria-hidden="true" className="mx-auto mb-5 flex items-center justify-center gap-3 text-[#8bc9bd]/70">
+            <span className="h-px w-12 bg-current" />
+            <span className="size-2 rotate-45 border border-current" />
+            <span className="h-px w-12 bg-current" />
+          </div>
           <p className="eyebrow text-[10px] text-[#319c91]">CERITA CINTA</p>
           <h2 className="mt-3 font-serif text-4xl text-[#236e64] sm:text-5xl">
             Sepenggal Kisah
@@ -282,7 +289,7 @@ export function Invitation({ guestName }: { guestName: string }) {
           {wedding.bankAccounts.map((bank) => (
             <div
               key={`${bank.name}-${bank.account}`}
-              className="border border-[#cce3dd] bg-white p-6"
+              className="rounded-2xl border border-[#cce3dd] bg-white p-6"
             >
               <p className="font-serif text-2xl text-[#236e64]">{bank.name}</p>
               <p className="mt-3 text-lg tracking-widest text-[#315c55]">

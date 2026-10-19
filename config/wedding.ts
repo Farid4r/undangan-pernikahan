@@ -10,13 +10,13 @@ export const wedding = {
     alt: `Foto galeri pernikahan ${index + 1}`,
   })),
   saveTheDatePhoto: "/images/wedding/save-the-date.jpg",
-  musicUrl: " public/audio/wedding-song.mp3",
+  musicUrl: "/audio/wedding-song.mp3",
   events: [
     { type: "Resepsi", time: "10.30 – Selesai", place: "CV Abynet", mapsUrl: "https://maps.app.goo.gl/YyPJGYvc9RVsa1GB8?g_st=ic" },
   ],
   bankAccounts: [
     { name: "Bank BCA", account: "5421170089", holder: "Rifqi Subakti" },
     { name: "Bank MANDIRI", account: "13100192624107", holder: "Natashya" },
-    { name: "DANA", account: "0896303667", holder: "Rifqi Subakti" },
+    { name: "DANA", account: "089630366367", holder: "Rifqi Subakti" },
   ],
 } as const;

@@ -6,7 +6,14 @@ type GuestbookEntry = { id: number; name: string; message: string; attendance: "
 export async function GET() {
   if (!isSupabaseConfigured()) return NextResponse.json({ entries: [], configured: false });
   try {
-    const entries = await supabaseRequest<GuestbookEntry[]>("guestbook?select=id,name,message,attendance,created_at&order=created_at.desc&limit=50");
+    let entries: GuestbookEntry[];
+    try {
+      entries = await supabaseRequest<GuestbookEntry[]>("guestbook?select=id,name,message,attendance,created_at&order=created_at.desc&limit=50");
+    } catch (error) {
+      console.error("Guestbook query with attendance failed; trying legacy columns:", error);
+      const legacyEntries = await supabaseRequest<Omit<GuestbookEntry, "attendance">[]>("guestbook?select=id,name,message,created_at&order=created_at.desc&limit=50");
+      entries = legacyEntries.map((entry) => ({ ...entry, attendance: null }));
+    }
     return NextResponse.json({ entries, configured: true });
   } catch (error) {
     console.error("Gagal memuat guestbook dari Supabase:", error);

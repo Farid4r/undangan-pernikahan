@@ -214,7 +214,7 @@ export function Invitation({ guestName }: { guestName: string }) {
                 </p>
               </div>
               <p className="mt-5 font-serif text-3xl text-[#236e64]">
-                {wedding.dateLabel}
+                Kediaman Mempelai Wanita
               </p>
               <div className="mt-5 space-y-3 text-sm text-[#6d8580]">
                 <p className="flex items-center justify-center gap-3">

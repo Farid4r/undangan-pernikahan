@@ -37,7 +37,7 @@ export function MusicPlayer({ src }: { src: string }) {
 
   return (
     <section className="music-section px-4 pb-7 pt-12 sm:pb-9 sm:pt-16" aria-label="Musik undangan">
-      <div className="music-card mx-auto flex max-w-md items-center gap-4 rounded-[2rem] px-4 py-3.5 sm:gap-5 sm:px-5">
+      <div className="music-card mx-auto flex max-w-md items-center gap-4 rounded-4xl px-4 py-3.5 sm:gap-5 sm:px-5">
         <audio
           ref={audio}
           src={src}

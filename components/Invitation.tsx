@@ -238,7 +238,7 @@ export function Invitation({ guestName }: { guestName: string }) {
                 <iframe
                   title={`Peta lokasi ${event.place}`}
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(event.place)}&output=embed`}
-                  className="block aspect-[16/9] w-full"
+                  className="block aspect-video w-full"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
@@ -271,7 +271,7 @@ export function Invitation({ guestName }: { guestName: string }) {
                 src={photo.src}
                 alt={photo.alt}
                 loading="lazy"
-                className="aspect-square w-full rounded-sm object-cover sm:aspect-[4/3]"
+                className="aspect-square w-full rounded-sm object-cover sm:aspect-4/3"
               />
             ))}
           </div>
@@ -313,7 +313,7 @@ export function Invitation({ guestName }: { guestName: string }) {
         <p className="font-serif text-2xl text-white">
           TERIMA KASIH 
         </p>
-        <p className="mt-2">©2026 Kreatipisan.co</p>
+        <p className="">©2026 Kreatipisan.co</p>
       </footer>
     </main>
   );

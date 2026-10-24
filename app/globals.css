@@ -45,10 +45,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .cover-divider { background: linear-gradient(90deg, transparent, rgb(220 249 241 / 85%), transparent); }
 .cover-open { background: rgb(255 255 255 / 9%); }
 .save-the-date {
-  background-color: #236e64;
-  background-image: linear-gradient(145deg, rgb(24 91 82 / 48%), rgb(35 110 100 / 58%)), url("/images/wedding/save-the-date.JPG");
-  background-position: center;
-  background-size: cover;
+  background: linear-gradient(145deg, #123f3a, #17534b 58%, #123f3a);
 }
 .countdown-grid { padding: .5rem; border: 1px solid rgb(255 255 255 / 45%); border-radius: 1rem; background: rgb(255 255 255 / 13%); backdrop-filter: blur(8px); }
 .countdown-cell { border: 1px solid rgb(255 255 255 / 70%); border-radius: .55rem; background: #fff; box-shadow: 0 4px 16px rgb(19 75 66 / 5%); }
@@ -74,7 +71,7 @@ main > section:nth-of-type(5) button:hover { transform: translateY(-1px); }
 .guestbook-submit { border-radius: 999px; box-shadow: 0 6px 16px rgb(35 110 100 / 15%); }
 .guestbook-entry { border-radius: .8rem; }
 .music-section { background: linear-gradient(180deg, #f5fbf9, #fff); }
-.music-card { border: 1px solid #bde6df; background: linear-gradient(115deg, #79d9ca, #59c4b4 72%, #45b4a5); box-shadow: 0 12px 30px rgb(35 110 100 / 18%); }
+.music-card { border: 1px solid #cce8e2; background: linear-gradient(115deg, #fff, #f2faf8 72%, #e8f5f2); box-shadow: 0 12px 30px rgb(35 110 100 / 12%); }
 .music-record { position: relative; display: grid; width: 3.5rem; height: 3.5rem; flex: 0 0 auto; place-items: center; border: 1px solid rgb(255 255 255 / 25%); border-radius: 50%; background: repeating-radial-gradient(circle, #236e64 0 2px, #2d8075 3px 4px, #1d6159 5px 6px); box-shadow: 0 5px 13px rgb(22 84 75 / 18%); }
 .music-record::before { position: absolute; inset: 13%; border: 1px solid rgb(255 255 255 / 15%); border-radius: 50%; content: ""; }
 .music-record-label { display: grid; width: 1.35rem; height: 1.35rem; place-items: center; border: 1px solid rgb(255 255 255 / 55%); border-radius: 50%; background: #bde6df; color: #236e64; font-family: Georgia, serif; font-size: .42rem; }

@@ -77,7 +77,7 @@ export function MusicPlayer({ src }: { src: string }) {
           className="music-play-button grid size-11 shrink-0 place-items-center rounded-full bg-[#bde6df] text-[#174f49] shadow-md sm:size-12"
           title={playing ? "Jeda musik" : "Putar musik"}
         >
-          {playing ? <span className="text-base font-bold">||</span> : <span className="ml-0.5 text-sm">▶</span>}
+          {playing ? <span className="text-base font-bold">||</span> : <span className="ml-0.5 text-sm"></span>}
         </button>
       </div>
     </section>

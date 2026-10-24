@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-type Entry = { id: number; name: string; message: string; created_at: string };
+import Image from "next/image";
+type Entry = { id: number; name: string; message: string; attendance: "Hadir" | "Tidak hadir" | null; created_at: string };
 
 export function Guestbook({ guestName }: { guestName: string }) {
   const [entries, setEntries] = useState<Entry[]>([]), [status, setStatus] = useState("Memuat ucapan…"), [sending, setSending] = useState(false);
@@ -19,7 +20,7 @@ export function Guestbook({ guestName }: { guestName: string }) {
       <button disabled={sending} className="guestbook-submit w-full bg-[#319c91] px-6 py-3 text-xs tracking-[.18em] text-white transition hover:bg-[#236e64] disabled:opacity-60">{sending ? "MENGIRIM…" : "KIRIM UCAPAN"}</button>
     </form><p aria-live="polite" className="mt-4 min-h-6 text-sm text-[#68827c]">{status}</p>
     <div aria-label="Daftar ucapan yang tersimpan" className="guestbook-entries mt-8 max-h-80 overflow-y-auto overscroll-contain rounded-2xl border border-[#d5e7e2] bg-white p-4 text-left">
-      {entries.length > 0 ? <div className="space-y-3">{entries.map((entry) => <article key={entry.id} className="guestbook-entry border border-[#d5e7e2] bg-white p-4"><p className="font-medium text-[#236e64]">{entry.name}</p><p className="mt-2 text-sm leading-6 text-[#78918c]">{entry.message}</p></article>)}</div> : <p className="py-8 text-center text-sm text-[#78918c]">Belum ada ucapan tersimpan.</p>}
+      {entries.length > 0 ? <div className="space-y-3">{entries.map((entry) => <article key={entry.id} className="guestbook-entry border border-[#d5e7e2] bg-white p-4"><div className="flex items-center gap-3"><Image src="/person.svg" alt="" aria-hidden="true" width={40} height={40} className="size-10 shrink-0" /><div className="min-w-0"><p className="font-medium text-[#236e64]">{entry.name}</p><p className={`mt-1 inline-flex rounded-full px-2.5 py-1 text-[11px] font-medium ${entry.attendance === "Hadir" ? "bg-[#e8f5f2] text-[#236e64]" : entry.attendance === "Tidak hadir" ? "bg-[#fff2e8] text-[#9a5b31]" : "bg-[#f1f5f4] text-[#78918c]"}`}>{entry.attendance ?? "Status belum tercatat"}</p></div></div><p className="mt-3 text-sm leading-6 text-[#78918c]">{entry.message}</p></article>)}</div> : <p className="py-8 text-center text-sm text-[#78918c]">Belum ada ucapan tersimpan.</p>}
     </div>
   </div></section>;
 }

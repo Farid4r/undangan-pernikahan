@@ -9,7 +9,6 @@ export const wedding = {
     src: `/images/wedding/gallery-${String(index + 1).padStart(2, "0")}.${extension}`,
     alt: `Foto galeri pernikahan ${index + 1}`,
   })),
-  saveTheDatePhoto: "/images/wedding/save-the-date.JPG",
   musicUrl: "/audio/wedding-song.mp3",
   events: [
     { type: "Resepsi", time: "10.30 – Selesai", place: "CV Abynet", mapsUrl: "https://maps.app.goo.gl/YyPJGYvc9RVsa1GB8?g_st=ic" },

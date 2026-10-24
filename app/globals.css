@@ -45,7 +45,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .cover-divider { background: linear-gradient(90deg, transparent, rgb(220 249 241 / 85%), transparent); }
 .cover-open { background: rgb(255 255 255 / 9%); }
 .save-the-date {
-  background: linear-gradient(145deg, #123f3a, #17534b 58%, #123f3a);
+  background-color: #315c55;
+  background-image: linear-gradient(rgb(15 47 42 / 42%), rgb(15 47 42 / 58%)), url("/images/wedding/save-the-date.JPG");
+  background-position: center;
+  background-size: cover;
 }
 .countdown-grid { padding: .5rem; border: 1px solid rgb(255 255 255 / 45%); border-radius: 1rem; background: rgb(255 255 255 / 13%); backdrop-filter: blur(8px); }
 .countdown-cell { border: 1px solid rgb(255 255 255 / 70%); border-radius: .55rem; background: #fff; box-shadow: 0 4px 16px rgb(19 75 66 / 5%); }
@@ -57,14 +60,12 @@ main > section:not(.cover) a[href*="maps"]:hover { transform: translateY(-2px); 
 #undangan { background: linear-gradient(180deg, #fff 0%, #f8fcfb 100%); }
 #undangan img { box-shadow: 0 12px 30px rgb(35 110 100 / 12%); }
 #undangan img + p { letter-spacing: -.025em; }
-main > section:nth-of-type(3) { background-color: #fff; }
-main > section:nth-of-type(4) { background: #fbfefd; }
-main > section:nth-of-type(4) img { border-radius: .75rem; box-shadow: 0 7px 22px rgb(35 110 100 / 9%); transition: transform .35s ease, box-shadow .35s ease; }
-main > section:nth-of-type(4) img:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(35 110 100 / 15%); }
-main > section:nth-of-type(5) { background: linear-gradient(180deg, #e8f5f2, #f6fbf9); }
-main > section:nth-of-type(5) > div > div > div { border-radius: .9rem; box-shadow: 0 8px 24px rgb(35 110 100 / 7%); }
-main > section:nth-of-type(5) button { border-radius: 999px; }
-main > section:nth-of-type(5) button:hover { transform: translateY(-1px); }
+main > section:nth-of-type(5) img { border-radius: .75rem; box-shadow: 0 7px 22px rgb(35 110 100 / 9%); transition: transform .35s ease, box-shadow .35s ease; }
+main > section:nth-of-type(5) img:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(35 110 100 / 15%); }
+main > section:nth-of-type(6) { background: linear-gradient(180deg, #e8f5f2, #f6fbf9); }
+main > section:nth-of-type(6) > div > div > div { border-radius: .9rem; box-shadow: 0 8px 24px rgb(35 110 100 / 7%); }
+main > section:nth-of-type(6) button { border-radius: 999px; }
+main > section:nth-of-type(6) button:hover { transform: translateY(-1px); }
 .guestbook-section { background: #f7fcfa; }
 .guestbook-section input, .guestbook-section select, .guestbook-section textarea { border-radius: .65rem; transition: border-color .2s ease, box-shadow .2s ease; }
 .guestbook-section input:focus, .guestbook-section select:focus, .guestbook-section textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgb(49 156 145 / 12%); outline: none; }

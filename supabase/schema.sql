@@ -16,6 +16,7 @@ create table if not exists public.guestbook (
 );
 
 alter table public.guestbook add column if not exists attendance text check (attendance in ('Hadir', 'Tidak hadir'));
+notify pgrst, 'reload schema';
 
 alter table public.rsvp enable row level security;
 alter table public.guestbook enable row level security;

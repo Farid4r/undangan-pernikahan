@@ -8,7 +8,8 @@ export async function GET() {
   try {
     const entries = await supabaseRequest<GuestbookEntry[]>("guestbook?select=id,name,message,attendance,created_at&order=created_at.desc&limit=50");
     return NextResponse.json({ entries, configured: true });
-  } catch {
+  } catch (error) {
+    console.error("Gagal memuat guestbook dari Supabase:", error);
     return NextResponse.json({ error: "Buku ucapan belum dapat dimuat." }, { status: 503 });
   }
 }
@@ -25,7 +26,8 @@ export async function POST(request: Request) {
   try {
     await supabaseRequest("rpc/submit_wedding_response", { method: "POST", body: JSON.stringify({ guest_name: name.trim(), guest_attendance: attendance, guest_message: message.trim() }) });
     return NextResponse.json({ ok: true }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("Gagal menyimpan respons guestbook ke Supabase:", error);
     return NextResponse.json({ error: "Ucapan gagal disimpan. Silakan coba lagi." }, { status: 503 });
   }
 }

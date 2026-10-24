@@ -19,7 +19,7 @@ export async function supabaseRequest<T>(path: string, init?: RequestInit): Prom
     },
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Permintaan database gagal.");
   const body = await response.text();
+  if (!response.ok) throw new Error(`Permintaan database gagal (${response.status}): ${body}`);
   return (body ? JSON.parse(body) : undefined) as T;
 }

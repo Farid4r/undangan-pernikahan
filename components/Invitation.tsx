@@ -194,11 +194,11 @@ export function Invitation({ guestName }: { guestName: string }) {
         <p className="mt-3 text-sm text-white/90">{wedding.dateLabel}</p>
         <Countdown date={wedding.date} />
         <CalendarPreview />
-        <div className="mx-auto mt-11 grid max-w-4xl justify-items-center gap-5 sm:grid-cols-2">
+        <div className="mx-auto mt-11 grid w-full max-w-2xl justify-items-center gap-5">
           {wedding.events.map((event) => (
             <article
               key={event.type}
-              className="w-full border border-[#d7ebe6] bg-white p-7 text-center sm:p-9"
+              className="w-full border border-[#d7ebe6] bg-white/95 p-7 text-center sm:p-9"
             >
               <Image
                 src="/images/location.png"

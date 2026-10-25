@@ -8,6 +8,7 @@ import { Countdown } from "@/components/Countdown";
 import { CalendarPreview } from "@/components/CalendarPreview";
 import { Guestbook } from "@/components/Guestbook";
 import { MusicPlayer } from "@/components/MusicPlayer";
+import { StoryGallery } from "@/components/StoryGallery";
 
 function Flower({ className = "" }: { className?: string }) {
   return (
@@ -264,17 +265,7 @@ export function Invitation({ guestName }: { guestName: string }) {
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-8 text-[#78918c]">
             {wedding.story}
           </p>
-          <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {wedding.gallery.map((photo) => (
-              <img
-                key={photo.src}
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-                className="aspect-square w-full rounded-sm object-cover sm:aspect-4/3"
-              />
-            ))}
-          </div>
+          <StoryGallery photos={wedding.gallery} />
         </div>
       </section>
       <section className="bg-[#1f816a] px-6 py-16 text-center">

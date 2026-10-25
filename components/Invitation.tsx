@@ -277,7 +277,15 @@ export function Invitation({ guestName }: { guestName: string }) {
           </div>
         </div>
       </section>
-      <section className="bg-[#e8f5f2] px-6 py-16 text-center">
+      <section className="bg-[#1f816a] px-6 py-16 text-center">
+        <Image
+          src="/gift.svg"
+          alt=""
+          aria-hidden="true"
+          width={48}
+          height={48}
+          className="mx-auto mb-4 size-12 object-contain"
+        />
         <p className="eyebrow text-[10px] text-[#319c91]">TANDA KASIH</p>
         <h2 className="mt-3 font-serif text-4xl text-[#236e64]">
           Hadiah Digital
@@ -313,7 +321,7 @@ export function Invitation({ guestName }: { guestName: string }) {
         <p className="font-serif text-2xl text-white">
           TERIMA KASIH 
         </p>
-        <p className="">©2026 Kreatipisan.co</p>
+        <p className="text-white/75">©2026 Kreatipisan.co</p>
       </footer>
     </main>
   );

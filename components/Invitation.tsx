@@ -331,20 +331,10 @@ export function Invitation({ guestName }: { guestName: string }) {
             />
             <span className="font-serif text-xl tracking-wide">Kreatipisan</span>
           </a>
-          <p className="mt-1 text-[10px] tracking-[.12em] text-[#dcece5]">
-            <a
-              href="https://www.instagram.com/kreatipisan.co/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline-offset-4 hover:underline"
-            >
-              Follow us on Instagram
-            </a>
-          </p>
-        </div>
-        <p className="mt-6 border-t border-white/15 pt-4 text-[10px] tracking-wide text-white/75">
+          <p className=" border-white/15 pt-4 text-[10px] tracking-wide text-white/75">
           © 2026 Kreatipisan.co
         </p>
+        </div>
       </footer>
     </main>
   );

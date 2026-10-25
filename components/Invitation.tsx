@@ -136,6 +136,15 @@ export function Invitation({ guestName }: { guestName: string }) {
         <Flower className="absolute -left-10 top-12 w-36 text-[#319c91]/15 sm:left-8 sm:w-48" />
         <Flower className="absolute -right-12 bottom-4 w-36 rotate-90 text-[#319c91]/15 sm:right-8 sm:w-48" />
         <div className="relative mx-auto max-w-2xl">
+          <Image
+            src="/invitation.svg"
+            alt=""
+            aria-hidden="true"
+            width={48}
+            height={48}
+            className="mx-auto mb-5 size-12 object-contain"
+            style={{ boxShadow: "none" }}
+          />
           <p className="eyebrow text-[10px] text-[#319c91]">
             بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
           </p>
@@ -160,6 +169,16 @@ export function Invitation({ guestName }: { guestName: string }) {
               <p className="mt-2 text-xs text-[#77918b]">
                 {wedding.bride.parents}
               </p>
+              <a
+                href="https://www.instagram.com/ntsyazn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram bride @ntsyazn"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#319c91] px-4 py-2 text-xs font-medium text-white shadow-sm transition hover:bg-[#236e64] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#236e64]"
+              >
+                <Image src="/Instagram.svg" alt="" aria-hidden="true" width={16} height={16} className="size-4" />
+                <span>@ntsyazn</span>
+              </a>
             </div>
             <span className="font-serif text-4xl italic text-[#319c91]">
               &amp;
@@ -176,6 +195,16 @@ export function Invitation({ guestName }: { guestName: string }) {
               <p className="mt-2 text-xs text-[#77918b]">
                 {wedding.groom.parents}
               </p>
+              <a
+                href="https://www.instagram.com/rifqyst_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram groom @rifqyst_"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#319c91] px-4 py-2 text-xs font-medium text-white shadow-sm transition hover:bg-[#236e64] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#236e64]"
+              >
+                <Image src="/Instagram.svg" alt="" aria-hidden="true" width={16} height={16} className="size-4" />
+                <span>@rifqyst_</span>
+              </a>
             </div>
           </div>
           <p className="mt-9 font-serif text-lg italic text-[#71938c]">
@@ -202,7 +231,7 @@ export function Invitation({ guestName }: { guestName: string }) {
               className="w-full border border-[#d7ebe6] bg-white/80 p-5 text-center sm:p-6"
             >
               <Image
-                src="/images/location.png"
+                src="/location.svg"
                 alt=""
                 aria-hidden="true"
                 width={48}

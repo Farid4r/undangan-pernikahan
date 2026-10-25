@@ -60,12 +60,8 @@ main > section:not(.cover) a[href*="maps"]:hover { transform: translateY(-2px); 
 #undangan { background: linear-gradient(180deg, #fff 0%, #f8fcfb 100%); }
 #undangan img { box-shadow: 0 12px 30px rgb(35 110 100 / 12%); }
 #undangan img + p { letter-spacing: -.025em; }
-.story-gallery-track { scrollbar-width: none; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
-.story-gallery-track::-webkit-scrollbar { display: none; }
-.story-gallery-slide { scroll-snap-align: start; }
-@media (prefers-reduced-motion: reduce) {
-  .story-gallery-track { scroll-behavior: auto; }
-}
+.story-gallery-viewport { touch-action: pan-y pinch-zoom; }
+.story-gallery-slide { width: var(--story-slide-width, 84vw); }
 main > section:nth-of-type(6) { background: linear-gradient(180deg, #e8f5f2, #f6fbf9); }
 main > section:nth-of-type(6) > div > div > div { border-radius: .9rem; box-shadow: 0 8px 24px rgb(35 110 100 / 7%); }
 main > section:nth-of-type(6) button { border-radius: 999px; }

@@ -1,19 +1,51 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type GalleryPhoto = { src: string; alt: string };
+type Tween = { from: number; to: number; elapsed: number; duration: number };
+type Drag = { pointerId: number; startX: number; startPosition: number };
+
+const SCROLL_SPEED = 26;
+const RESUME_DELAY = 1200;
+const NAVIGATION_DURATION = 500;
 
 export function StoryGallery({ photos }: { photos: readonly GalleryPhoto[] }) {
+  const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
   const animationFrameRef = useRef<number | null>(null);
   const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const positionRef = useRef(0);
+  const groupWidthRef = useRef(0);
+  const slideStrideRef = useRef(0);
+  const dragRef = useRef<Drag | null>(null);
+  const tweenRef = useRef<Tween | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [isInteractionPaused, setIsInteractionPaused] = useState(false);
+  const [isTweening, setIsTweening] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const applyPosition = useCallback((position: number) => {
+    const groupWidth = groupWidthRef.current;
+    const stride = slideStrideRef.current;
+    if (groupWidth <= 0) return;
+
+    const normalizedPosition = ((position - groupWidth) % groupWidth + groupWidth) % groupWidth + groupWidth;
+    positionRef.current = normalizedPosition;
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${-normalizedPosition}px, 0, 0)`;
+    }
+
+    if (stride > 0 && photos.length > 0) {
+      const slideProgress = (normalizedPosition - groupWidth) / stride;
+      const nextIndex = Math.round(slideProgress) % photos.length;
+      setActiveIndex((currentIndex) => currentIndex === nextIndex ? currentIndex : nextIndex);
+    }
+  }, [photos.length]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -24,68 +56,147 @@ export function StoryGallery({ photos }: { photos: readonly GalleryPhoto[] }) {
   }, []);
 
   useEffect(() => {
-    if (photos.length < 2 || isHovered || isInteractionPaused || prefersReducedMotion) return;
-
-    const interval = window.setInterval(() => {
-      const nextIndex = (activeIndex + 1) % photos.length;
+    const measure = () => {
+      const viewport = viewportRef.current;
       const track = trackRef.current;
-      const nextSlide = slideRefs.current[nextIndex];
-      if (track && nextSlide) {
-        track.scrollTo({ left: nextSlide.offsetLeft, behavior: "smooth" });
-      }
-    }, 4000);
+      const firstSlide = slideRefs.current[0];
+      const secondSlide = slideRefs.current[1];
+      const firstRepeat = slideRefs.current[photos.length];
+      if (!viewport || !track || !firstSlide || !secondSlide || !firstRepeat) return;
 
-    return () => window.clearInterval(interval);
-  }, [activeIndex, isHovered, isInteractionPaused, photos.length, prefersReducedMotion]);
+      const viewportStyle = window.getComputedStyle(viewport);
+      const contentWidth = viewport.clientWidth
+        - Number.parseFloat(viewportStyle.paddingLeft)
+        - Number.parseFloat(viewportStyle.paddingRight);
+      const slideRatio = window.innerWidth >= 1024 ? 0.64 : window.innerWidth >= 640 ? 0.72 : 0.84;
+      track.style.setProperty("--story-slide-width", `${contentWidth * slideRatio}px`);
+
+      const oldGroupWidth = groupWidthRef.current;
+      const oldStride = slideStrideRef.current;
+      const oldProgress = oldGroupWidth > 0 && oldStride > 0
+        ? (positionRef.current - oldGroupWidth) / oldStride
+        : 0;
+      const groupWidth = firstRepeat.offsetLeft - firstSlide.offsetLeft;
+      const stride = secondSlide.offsetLeft - firstSlide.offsetLeft;
+      if (groupWidth <= 0 || stride <= 0) return;
+
+      groupWidthRef.current = groupWidth;
+      slideStrideRef.current = stride;
+      applyPosition(groupWidth + oldProgress * stride);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (viewportRef.current) observer.observe(viewportRef.current);
+    if (slideRefs.current[0]) observer.observe(slideRefs.current[0]!);
+    return () => observer.disconnect();
+  }, [applyPosition, photos.length]);
+
+  useEffect(() => {
+    if (prefersReducedMotion || isDragging || ((isHovered || isInteractionPaused) && !isTweening)) return;
+
+    let previousTime: number | null = null;
+    const animate = (time: number) => {
+      const delta = previousTime === null ? 0 : Math.min(time - previousTime, 32);
+      previousTime = time;
+
+      const tween = tweenRef.current;
+      if (tween) {
+        tween.elapsed += delta;
+        const progress = Math.min(tween.elapsed / tween.duration, 1);
+        const easedProgress = 1 - (1 - progress) ** 3;
+        applyPosition(tween.from + (tween.to - tween.from) * easedProgress);
+        if (progress >= 1) {
+          tweenRef.current = null;
+          setIsTweening(false);
+        }
+      } else if (!isInteractionPaused && !isHovered && !isDragging) {
+        applyPosition(positionRef.current + delta * SCROLL_SPEED / 1000);
+      } else {
+        animationFrameRef.current = null;
+        return;
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    };
+  }, [applyPosition, isDragging, isHovered, isInteractionPaused, isTweening, prefersReducedMotion]);
 
   useEffect(() => () => {
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current);
   }, []);
 
-  function pauseAutoplayBriefly() {
+  function pauseAfterInteraction() {
     setIsInteractionPaused(true);
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => {
       setIsInteractionPaused(false);
       resumeTimeoutRef.current = null;
-    }, 1500);
+    }, RESUME_DELAY);
+  }
+
+  function getPositionForIndex(index: number) {
+    const groupWidth = groupWidthRef.current;
+    const stride = slideStrideRef.current;
+    const basePosition = groupWidth + index * stride;
+    const candidates = [basePosition - groupWidth, basePosition, basePosition + groupWidth];
+    return candidates.reduce((closest, candidate) =>
+      Math.abs(candidate - positionRef.current) < Math.abs(closest - positionRef.current)
+        ? candidate
+        : closest,
+    );
   }
 
   function goToSlide(index: number) {
-    const track = trackRef.current;
-    const slide = slideRefs.current[index];
-    if (!track || !slide) return;
-    pauseAutoplayBriefly();
-    track.scrollTo({
-      left: slide.offsetLeft,
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-    });
+    pauseAfterInteraction();
+    const targetPosition = getPositionForIndex(index);
+    if (prefersReducedMotion) {
+      tweenRef.current = null;
+      setIsTweening(false);
+      applyPosition(targetPosition);
+      return;
+    }
+
+    tweenRef.current = {
+      from: positionRef.current,
+      to: targetPosition,
+      elapsed: 0,
+      duration: NAVIGATION_DURATION,
+    };
+    setIsTweening(true);
   }
 
-  function updateActiveSlide() {
-    const track = trackRef.current;
-    if (!track) return;
-
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
-    slideRefs.current.forEach((slide, index) => {
-      if (!slide) return;
-      const distance = Math.abs(slide.offsetLeft - track.scrollLeft);
-      if (distance < closestDistance) {
-        closestIndex = index;
-        closestDistance = distance;
-      }
-    });
-    setActiveIndex(closestIndex);
+  function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (event.button !== 0) return;
+    pauseAfterInteraction();
+    tweenRef.current = null;
+    setIsTweening(false);
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startPosition: positionRef.current,
+    };
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
   }
 
-  function handleScroll() {
-    if (animationFrameRef.current !== null) return;
-    animationFrameRef.current = requestAnimationFrame(() => {
-      animationFrameRef.current = null;
-      updateActiveSlide();
-    });
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    applyPosition(drag.startPosition - (event.clientX - drag.startX));
+  }
+
+  function finishPointerDrag(event: React.PointerEvent<HTMLDivElement>) {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    setIsDragging(false);
+    pauseAfterInteraction();
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -98,48 +209,63 @@ export function StoryGallery({ photos }: { photos: readonly GalleryPhoto[] }) {
     }
   }
 
+  function handleWheel(event: React.WheelEvent<HTMLDivElement>) {
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+    event.preventDefault();
+    pauseAfterInteraction();
+    applyPosition(positionRef.current + event.deltaX);
+  }
+
   return (
     <div className="story-gallery relative mx-auto mt-9 w-full max-w-5xl sm:mt-10">
       <div
-        ref={trackRef}
-        className="story-gallery-track flex gap-4 overflow-x-auto overscroll-x-contain px-1 pb-2"
-        role="region"
-        aria-label="Galeri foto Sepenggal Kisah"
-        aria-roledescription="carousel"
-        tabIndex={0}
-        onScroll={handleScroll}
-        onKeyDown={handleKeyDown}
-        onPointerDown={(event) => {
-          if (event.pointerType === "touch") pauseAutoplayBriefly();
-        }}
+        ref={viewportRef}
+        className={`story-gallery-viewport overflow-hidden px-1 pb-2 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishPointerDrag}
+        onPointerCancel={finishPointerDrag}
         onPointerEnter={(event) => {
           if (event.pointerType === "mouse") setIsHovered(true);
         }}
         onPointerLeave={(event) => {
           if (event.pointerType === "mouse") setIsHovered(false);
         }}
-        onWheel={(event) => {
-          if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) pauseAutoplayBriefly();
-        }}
+        onWheel={handleWheel}
       >
-        {photos.map((photo, index) => (
-          <div
-            key={photo.src}
-            ref={(element) => { slideRefs.current[index] = element; }}
-            className="story-gallery-slide relative aspect-[4/3] w-[84%] shrink-0 overflow-hidden rounded-2xl bg-[#e8f5f2] shadow-lg shadow-[#315c55]/10 sm:w-[72%] lg:w-[64%]"
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${index + 1} dari ${photos.length}`}
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="(max-width: 640px) 84vw, (max-width: 1024px) 72vw, 64vw"
-              className="object-cover"
-            />
-          </div>
-        ))}
+        <div
+          ref={trackRef}
+          className="story-gallery-track flex w-max gap-4"
+          role="region"
+          aria-label="Galeri foto Sepenggal Kisah"
+          aria-roledescription="carousel"
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
+          {[0, 1, 2].flatMap((copy) => photos.map((photo, index) => {
+            const isDuplicate = copy !== 1;
+            return (
+              <div
+                key={`${copy}-${photo.src}`}
+                ref={(element) => { slideRefs.current[copy * photos.length + index] = element; }}
+                className="story-gallery-slide relative aspect-[4/3] max-w-[42rem] shrink-0 overflow-hidden rounded-2xl bg-[#e8f5f2] shadow-lg shadow-[#315c55]/10"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} dari ${photos.length}`}
+                aria-hidden={isDuplicate}
+              >
+                <Image
+                  src={photo.src}
+                  alt={isDuplicate ? "" : photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 84vw, (max-width: 1024px) 72vw, 64vw"
+                  className="pointer-events-none object-cover"
+                  draggable={false}
+                />
+              </div>
+            );
+          }))}
+        </div>
       </div>
 
       {photos.length > 1 && (
@@ -150,7 +276,7 @@ export function StoryGallery({ photos }: { photos: readonly GalleryPhoto[] }) {
             onClick={() => goToSlide((activeIndex - 1 + photos.length) % photos.length)}
             className="absolute left-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#315c55] shadow-md transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#319c91] sm:grid"
           >
-            <span aria-hidden="true" className="text-2xl leading-none">‹</span>
+            <span aria-hidden="true" className="text-2xl leading-none">&#8249;</span>
           </button>
           <button
             type="button"
@@ -158,7 +284,7 @@ export function StoryGallery({ photos }: { photos: readonly GalleryPhoto[] }) {
             onClick={() => goToSlide((activeIndex + 1) % photos.length)}
             className="absolute right-3 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#315c55] shadow-md transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#319c91] sm:grid"
           >
-            <span aria-hidden="true" className="text-2xl leading-none">›</span>
+            <span aria-hidden="true" className="text-2xl leading-none">&#8250;</span>
           </button>
           <div className="mt-4 flex items-center justify-center" aria-label="Pilih foto">
             {photos.map((photo, index) => (

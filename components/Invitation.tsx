@@ -308,11 +308,43 @@ export function Invitation({ guestName }: { guestName: string }) {
         </div>
       </section>
       <Guestbook guestName={guestName} />
-      <footer className="bg-[#236e64] px-6 py-7 text-center text-[10px] tracking-wide text-white/75">
-        <p className="font-serif text-2xl text-white">
-          TERIMA KASIH 
+      <footer className="bg-[#236e64] px-6 py-9 text-center text-white">
+        <p className="font-serif text-2xl">TERIMA KASIH</p>
+        <div className="mx-auto mt-6 max-w-xl border-t border-white/20 pt-6">
+          <p className="text-[9px] leading-5 tracking-[.22em] text-[#dcece5] sm:text-[10px] sm:tracking-[.26em]">
+            YOUR SPECIAL DAY, BEAUTIFULLY TOLD BY
+          </p>
+          <a
+            href="https://www.instagram.com/kreatipisan.co/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Kreatipisan di Instagram"
+            className="mt-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-white transition hover:text-[#dcece5] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#dcece5]"
+          >
+            <Image
+              src="/Instagram.svg"
+              alt=""
+              aria-hidden="true"
+              width={18}
+              height={18}
+              className="size-[18px]"
+            />
+            <span className="font-serif text-xl tracking-wide">Kreatipisan</span>
+          </a>
+          <p className="mt-1 text-[10px] tracking-[.12em] text-[#dcece5]">
+            <a
+              href="https://www.instagram.com/kreatipisan.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-4 hover:underline"
+            >
+              Follow us on Instagram
+            </a>
+          </p>
+        </div>
+        <p className="mt-6 border-t border-white/15 pt-4 text-[10px] tracking-wide text-white/75">
+          © 2026 Kreatipisan.co
         </p>
-        <p className="text-white/75">©2026 Kreatipisan.co</p>
       </footer>
     </main>
   );

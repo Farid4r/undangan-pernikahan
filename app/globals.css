@@ -46,7 +46,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .cover-open { background: rgb(255 255 255 / 9%); }
 .save-the-date {
   background-color: #315c55;
-  background-image: linear-gradient(rgb(15 47 42 / 42%), rgb(15 47 42 / 58%)), url("/images/wedding/save-the-date.JPG");
+  background-image: linear-gradient(rgb(15 47 42 / 42%), rgb(15 47 42 / 58%)), url("/images/wedding/save-the-date.jpg");
   background-position: center;
   background-size: cover;
 }

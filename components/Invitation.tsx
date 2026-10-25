@@ -199,7 +199,7 @@ export function Invitation({ guestName }: { guestName: string }) {
           {wedding.events.map((event) => (
             <article
               key={event.type}
-              className="w-full border border-[#d7ebe6] bg-white/95 p-5 text-center sm:p-6"
+              className="w-full border border-[#d7ebe6] bg-white/80 p-5 text-center sm:p-6"
             >
               <Image
                 src="/images/location.png"

@@ -10,7 +10,7 @@ const calendarDays = Array.from({ length: 35 }, (_, index) => {
 
 export function CalendarPreview() {
   return (
-    <div className="mx-auto mt-8 w-full max-w-xs rounded-2xl border border-white/60 bg-white/95 p-5 text-[#315c55] shadow-xl backdrop-blur sm:mt-10 sm:p-6">
+    <div className="mx-auto mt-8 w-full max-w-xs rounded-2xl border border-white/60 bg-white/80 p-5 text-[#315c55] shadow-xl backdrop-blur sm:mt-10 sm:p-6">
       <div className="mb-5 flex flex-col items-center text-center">
         <Image
           src="/images/calendar.png"

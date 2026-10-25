@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { isSupabaseConfigured, supabaseRequest } from "@/lib/supabase";
 
-type GuestbookEntry = { id: number; name: string; message: string; created_at: string };
+type GuestbookEntry = { id: number; name: string; message: string; attendance: string | null; created_at: string };
 
 export async function GET() {
   if (!isSupabaseConfigured()) return NextResponse.json({ entries: [], configured: false });
   try {
-    const entries = await supabaseRequest<GuestbookEntry[]>("guestbook?select=id,name,message,created_at&order=created_at.desc&limit=50");
+    const entries = await supabaseRequest<GuestbookEntry[]>("guestbook?select=id,name,message,attendance,created_at&order=created_at.desc&limit=50");
     return NextResponse.json({ entries, configured: true });
   } catch (error) {
     console.error("Gagal memuat guestbook dari Supabase:", error);

@@ -24,7 +24,7 @@ alter table public.guestbook enable row level security;
 revoke all on public.rsvp from anon, authenticated;
 revoke all on public.guestbook from anon, authenticated;
 grant insert (name, attendance) on public.rsvp to anon;
-grant select (id, name, message, attendance, created_at), insert (name, message) on public.guestbook to anon;
+grant select (id, name, message, attendance, created_at), insert (name, message, attendance) on public.guestbook to anon;
 
 drop policy if exists "Public may submit RSVP" on public.rsvp;
 create policy "Public may submit RSVP" on public.rsvp for insert to anon
@@ -34,7 +34,7 @@ drop policy if exists "Public may read guestbook" on public.guestbook;
 create policy "Public may read guestbook" on public.guestbook for select to anon using (true);
 drop policy if exists "Public may submit guestbook messages" on public.guestbook;
 create policy "Public may submit guestbook messages" on public.guestbook for insert to anon
-  with check (char_length(btrim(name)) between 2 and 80 and char_length(btrim(message)) between 2 and 500);
+  with check (char_length(btrim(name)) between 2 and 80 and char_length(btrim(message)) between 2 and 500 and attendance in ('Hadir', 'Tidak hadir'));
 
 -- Keep RSVP and guestbook writes in one transaction.
 create or replace function public.submit_wedding_response(

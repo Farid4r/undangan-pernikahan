@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import Image from "next/image";
 
 function formatTime(time: number) {
@@ -12,11 +12,27 @@ function formatTime(time: number) {
   return `${minutes}:${seconds}`;
 }
 
-export function MusicPlayer({ src }: { src: string }) {
-  const audio = useRef<HTMLAudioElement>(null);
+export function MusicPlayer({
+  src,
+  audioRef,
+}: {
+  src: string;
+  audioRef: RefObject<HTMLAudioElement | null>;
+}) {
+  const audio = audioRef;
   const [playing, setPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+
+  useEffect(() => {
+    const player = audio.current;
+    if (!player) return;
+
+    player.play().catch(() => {
+      // Autoplay with sound may be blocked until the visitor interacts.
+      setPlaying(false);
+    });
+  }, [audio]);
 
   async function toggle() {
     if (!audio.current) return;
@@ -47,6 +63,7 @@ export function MusicPlayer({ src }: { src: string }) {
         <audio
           ref={audio}
           src={src}
+          autoPlay
           loop
           preload="metadata"
           onPause={() => setPlaying(false)}

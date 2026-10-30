@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { wedding } from "@/config/wedding";
 import { Cover } from "@/components/Cover";
@@ -74,6 +74,7 @@ function Icon({ name }: { name: "pin" | "clock" | "heart" | "calendar" }) {
 
 export function Invitation({ guestName }: { guestName: string }) {
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
+  const musicAudio = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     const items = document.querySelectorAll<HTMLElement>(
       "main :is(h1, h2, p, img, article, a, button)",
@@ -110,6 +111,7 @@ export function Invitation({ guestName }: { guestName: string }) {
     };
   }, []);
   function openInvitation() {
+    musicAudio.current?.play().catch(() => undefined);
     document.getElementById("undangan")?.scrollIntoView({ behavior: "smooth" });
   }
   async function copyAccount(account: string) {
@@ -128,7 +130,7 @@ export function Invitation({ guestName }: { guestName: string }) {
   return (
     <main className="overflow-x-clip bg-white text-[#315c55]">
       <Cover guestName={guestName} onOpen={openInvitation} />
-      <MusicPlayer src={wedding.musicUrl} />
+      <MusicPlayer src={wedding.musicUrl} audioRef={musicAudio} />
       <section
         id="undangan"
         className="relative scroll-mt-4 px-6 py-20 text-center sm:py-28"
